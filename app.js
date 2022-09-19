@@ -17,8 +17,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+/*To serve static files such as images, CSS files, and JavaScript files, 
+**use the express.static built-in middleware function in Express.
+**The function signature is: express.static(root, [options])
+*/
+app.use(express.static(path.join(__dirname, 'public')));
+//However, the path that you provide to the express.static function is relative to the directory from where you launch your node process. If you run the express app from another directory, it’s safer to use the absolute path of the directory that you want to serve
+//The root argument specifies the root directory from which to serve static assets. i.e., public in the above case.
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
